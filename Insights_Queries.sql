@@ -15,7 +15,7 @@ GROUP BY bike_type, user_type
 ORDER BY user_type, no_of_bikes_used DESC;
 -- FINDINGS: casual riders used all the 3 types of bikes with electric_bikes as most used WHILE members do not use docked_bikes at all. 
 
--- to undertand the pattern of rides per quarter for each category of customers
+-- to undertand the pattern of rides per quarter for each category of customers as well as avg_ride_lengtg
 SELECT user_type, 'Q'||EXTRACT(QUARTER FROM started_at) AS quarter,
        COUNT(*) AS no_of_rides
 FROM full_year
@@ -23,7 +23,7 @@ GROUP BY quarter, user_type
 ORDER BY user_type, no_of_rides DESC;
 -- FINDINGS: there is a same pattern in number of rides per quarter for both customer types; most rides in Q3, then Q2, Q4 and lowest in Q1;
 
----to understand the riding patterns per day for each caterory of customers 
+---to understand the riding patterns per day for each caterory of customers as well as avg ride_length
 SELECT CASE EXTRACT(dow FROM started_at)
 	WHEN 0 THEN 'Sunday'   WHEN 1 THEN 'Monday'
 	WHEN 2 THEN 'Tuesday'  WHEN 3 THEN 'Wednesday'
@@ -35,4 +35,7 @@ FROM full_year
 WHERE user_type = 'casual'
 GROUP BY day_of_week
 ORDER BY no_of_rides DESC; -- <same was done for WHERE user_type = 'member'>
---FINDINGS:
+--FINDINGS: most rides happened on Saturday and Sunday for casual riders but the members used the bikes least on Sat. and Sun. and used mostly during the weekdays.
+
+-- NB:  831,369 rides were without proper start_station_name and end_station_name. That makes up ~14.1% of the total rides 
+-- I plan to visualise which store is most used by each category in the 
