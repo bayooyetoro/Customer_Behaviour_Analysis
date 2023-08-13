@@ -18,7 +18,7 @@ GROUP BY user_type
 
 -- to know the numbers of each user_type and percentage
 WITH t1 AS (SELECT user_type, COUNT(*) AS no_of_users
-	    FROM divy_ride
+	    FROM divyride
 	    GROUP BY user_type), 
      t2 AS (SELECT SUM(no_of_users) AS total_users
 	    FROM t1)	  
